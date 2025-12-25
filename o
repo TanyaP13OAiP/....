@@ -1,0 +1,89 @@
+<Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <!-- Шапка -->
+        <Border Grid.Row="0" Background="#2c3e50" Padding="15">
+            <StackPanel>
+                <TextBlock Text="АИС БЕЗОПАСНОСТИ ТЕПЛИЦЫ" 
+                         Foreground="White" FontSize="24" FontWeight="Bold"/>
+                <TextBlock Text="Специалист: Парамонова И.С." 
+                         Foreground="#ecf0f1" FontSize="14" Margin="0,5,0,0"/>
+            </StackPanel>
+        </Border>
+        <!-- Основной контент -->
+        <StackPanel Grid.Row="1" Margin="10">
+            <Border BorderBrush="Gray" BorderThickness="1" 
+                    CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+                    <Ellipse Name="statusIndicator" Grid.Column="0" Width="20" Height="20" Fill="Green" Margin="0,0,10,0"/>
+                    <TextBlock Name="txtStatus" Grid.Column="1" Text="НОРМА" FontSize="16" VerticalAlignment="Center"/>
+                    <Button Grid.Column="3" Content="Обновить" Click="RefreshButton_Click" Padding="10,5"/>
+                </Grid>
+            </Border>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
+                <Border Width="220" Height="100" Margin="5" BorderBrush="#3498db" BorderThickness="2" CornerRadius="5" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Температура" FontWeight="Bold"/>
+                        <TextBlock Name="txtTemperature" Text="22.5°C" FontSize="20" Margin="0,5,0,0"/>
+                        <TextBlock Text="Допуск: 15-30°C" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+                <Border Width="220" Height="100" Margin="5" BorderBrush="#2ecc71" BorderThickness="2" CornerRadius="5" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Напряжение" FontWeight="Bold"/>
+                        <TextBlock Name="txtVoltage" Text="220.0В" FontSize="20" Margin="0,5,0,0"/>
+                        <TextBlock Text="Допуск: 198-242В" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+                <Border Width="220" Height="100" Margin="5" BorderBrush="#9b59b6" BorderThickness="2" CornerRadius="5" Padding="10">
+                    <StackPanel>
+                        <TextBlock Text="Коэф. мощности" FontWeight="Bold"/>
+                        <TextBlock Name="txtPowerFactor" Text="0.92" FontSize="20" Margin="0,5,0,0"/>
+                        <TextBlock Text="Допуск: 0.8-0.99" FontSize="11"/>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10" Margin="0,0,0,10">
+                <StackPanel>
+                    <TextBlock Text="Управление безопасностью" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+                        <Button Name="btnEmergencyAlarm" Content="Аварийная сигнализация" Background="#e74c3c" Foreground="White" Width="200" Height="35" FontSize="13" Click="EmergencyAlarm_Click"/>
+                        <Button Name="btnNotifyManagers" Content="Уведомить руководителей" Background="#3498db" Foreground="White" Width="200" Height="35" FontSize="13" Margin="10,0,0,0" Click="NotifyManagers_Click"/>
+                    </StackPanel>
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="btnLockDoors" Content="Заблокировать двери" Background="#f39c12" Foreground="White" Width="150" Height="30" FontSize="12" Click="LockDoors_Click"/>
+                        <Button Name="btnUnlockDoors" Content="Разблокировать двери"  Background="#2ecc71" Foreground="White"  Width="150" Height="30" FontSize="12" Margin="10,0,0,0" Click="UnlockDoors_Click"/>
+                        <CheckBox Name="chkUVRestriction" Content="УФ процедура (ограничить доступ)"  Margin="20,0,0,0" VerticalAlignment="Center" Checked="UVRestriction_Checked" Unchecked="UVRestriction_Unchecked"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+            <!-- Лог событий -->
+            <Border BorderBrush="Gray" BorderThickness="1" CornerRadius="5" Padding="10">
+                <StackPanel>
+                    <TextBlock Text="Журнал событий безопасности" FontWeight="Bold" Margin="0,0,0,10"/>
+                    <ListView Name="listEvents" Height="180">
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="Время" Width="100">
+                                    <GridViewColumn.DisplayMemberBinding>
+                                        <Binding Path="Time" StringFormat="{}{0:HH:mm:ss}"/>
+                                    </GridViewColumn.DisplayMemberBinding>
+                                </GridViewColumn>
+                                <GridViewColumn Header="Событие" Width="450" DisplayMemberBinding="{Binding Description}"/>
+                                <GridViewColumn Header="Статус" Width="100" DisplayMemberBinding="{Binding Status}"/>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </Grid>
